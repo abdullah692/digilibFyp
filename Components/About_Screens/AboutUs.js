@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image,Dimensions } from 'react-native'
 function AboutUs({ navigation }) {
+   var { height,width } = Dimensions.get("window");
+
    return (
       <ScrollView>
-         <View style={styles.container}>
+         <View  style={styles.links}>
             <View style={styles.btns}>
                <TouchableOpacity onPress={() => navigation.navigate('Donation')}>
                   <Text style={styles.txt}>Donation Policy</Text>
@@ -13,9 +15,10 @@ function AboutUs({ navigation }) {
                   <Text style={styles.txt}>Staff Directory</Text>
                </TouchableOpacity>
             </View>
-            
+            </View>
+            <View style={styles.container}>
             <Text style={styles.heading}>Library Campuses</Text>
-            <Image style={{ width: 300, height: 180 ,marginHorizontal:30 }} source={
+            <Image style={{ width:width-30, height: height/5 }} source={
                require('../../assets/campus.png')} resizeMode="contain" />
             
                <Text style={styles.text}>
@@ -30,7 +33,7 @@ function AboutUs({ navigation }) {
                   
                   <View>
                   
-                     <Image style={{ width: 350, height: 400,marginHorizontal:22 }} source={
+                     <Image style={{ width:width-30, height: height/2,marginBottom:10 }} source={
                         require('../../assets/timing.png')} resizeMode="contain" />
                   </View>
                
@@ -48,6 +51,12 @@ const styles = StyleSheet.create({
    {
       flex: 1,
       backgroundColor: '#fff',
+      alignItems:'center'
+   },
+   links:
+   {
+       flex:1,
+       backgroundColor:'#fff'
    },
    btns:
    {
@@ -63,7 +72,7 @@ const styles = StyleSheet.create({
    },
    text:
    {
-      fontSize: 15,
+      // fontSize: 15,
       color: "#000",
       marginVertical: 10,
       marginHorizontal: 15,
@@ -71,15 +80,15 @@ const styles = StyleSheet.create({
    },
    subheading:
    {
-      fontSize: 22,
+      fontSize: 20,
       color: '#000',
    },
    heading:
    {
-      fontSize: 32,
+      fontSize: 30,
       color: '#000',
       textAlign: 'center',
-      marginTop: 20,
+      // marginTop: 20,
    },
 })
 

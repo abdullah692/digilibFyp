@@ -1,11 +1,13 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity,Image } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity,Image,Dimensions } from 'react-native'
 export default function StaffDirect({navigation}) {
+
+   var { height,width } = Dimensions.get("window");
    return (
       <ScrollView>
-         <View style={styles.container}>
+         
 
-
+<View style={styles.links}>
             <View style={styles.btns}>
             <TouchableOpacity onPress={()=>navigation.navigate('Donation')}>
                   <Text style={styles.txt}>Donation Policy</Text>
@@ -15,20 +17,22 @@ export default function StaffDirect({navigation}) {
                   <Text style={styles.txt}>Staff Directory</Text>
                </TouchableOpacity>
             </View>
-        
+            </View>
+
+            <View style={styles.container}>
             <Text style={styles.heading}>Staff Directory</Text>
             <View style={styles.img}> 
             <Image 
-            style={{ width: 380, height: 400,marginHorizontal:8 }} 
+            style={{ width: width, height:height/2}} 
             source={require('../../assets/staff1.png') } resizeMode="contain"/>
              <Image 
-            style={{ width: 380, height: 400,marginTop:-28,marginLeft:12 }} 
+            style={{ width: width, height:height/2,marginTop:-10}} 
             source={require('../../assets/staff2.png') } resizeMode="contain"/> 
               <Image 
-            style={{ width:400, height: 400,marginTop:-5,marginRight:25 }} 
+            style={{ width:width, height:height/2,alignContent:'stretch'}} 
             source={require('../../assets/staff3.png') } resizeMode="stretch"/>
              <Image 
-            style={{ width:390, height: 400,marginTop:-130,marginLeft:4}} 
+            style={{ width: width, height:height/5,marginTop:-10}} 
             source={require('../../assets/staff4.png') } resizeMode="contain"/>
             </View>
             <Text>{"\n"}{"\n"}</Text>
@@ -42,7 +46,13 @@ const styles=StyleSheet.create({
     {
         flex: 1,
         backgroundColor: '#fff',
+      //   alignItems:'center'
     },
+    links:
+   {
+       flex:1,
+       backgroundColor:'#fff'
+   },
     btns:
     {
         flexDirection: 'row',
@@ -57,10 +67,10 @@ const styles=StyleSheet.create({
     },
     heading:
    {
-      fontSize: 32,
+      fontSize: 30,
       color: '#000',
       textAlign: 'center',
-      marginTop: 20,
+      // marginTop: 20,
    },
 }
 )

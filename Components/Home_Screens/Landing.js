@@ -1,11 +1,14 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image,Dimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 export default function Landing({navigation}) {
+
+    var { height,width } = Dimensions.get("window");
+
     return (
         <ScrollView>
-            <View style={styles.container}>
+            <View style={styles.links}>
                 <View style={styles.btns}>
                 <TouchableOpacity onPress={()=>navigation.navigate('Landing')}>
                         <Text style={styles.txt}>Lending</Text>
@@ -19,9 +22,12 @@ export default function Landing({navigation}) {
                         <Text style={styles.txt}>Digital Library</Text>
                     </TouchableOpacity>
                 </View>
+                </View>
+
+                <View style={styles.container}>
                 <View style={styles.content}>
                     <Text style={styles.heading}>Book Bank</Text>
-                    <Image style={{ width: 300, height: 180 ,marginHorizontal:30 }} source={
+                    <Image style={{ width: width-50, height: height/4.5 }} source={
                         require('../../assets/bookbank.png')} resizeMode='contain' />
                     <Text style={styles.text}> Book Bank has been mainly designed to facilitate undergraduate students of NED University only. The collection of Book Bank comprises of text books which are updated regularly.{"\n"}{"\n"}</Text>
                     <Text style={styles.subheading}>Membership </Text>
@@ -45,7 +51,7 @@ export default function Landing({navigation}) {
                     </Text>
 
                     <Text style={styles.heading}>Circulation Section</Text>
-                    <Image style={{ width: 300, height: 180 ,marginHorizontal:30 }} source={
+                    <Image style={{ width: width-40, height: height/4.5}} source={
                         require('../../assets/Ciculation.png')} resizeMode="contain" />
 
                     <Text style={styles.text}>
@@ -74,7 +80,7 @@ export default function Landing({navigation}) {
                     </Text>
 
                     <Text style={styles.subheading}>Loan Period</Text>
-                    <Image style={{ width:350, height: 450,marginHorizontal:2 }} source={
+                    <Image style={{ width: width-40, height: height/2}} source={
                         require('../../assets/loan.png')} resizeMode="contain" />
 
 
@@ -96,12 +102,19 @@ const styles = StyleSheet.create({
     {
         flex: 1,
         backgroundColor: '#fff',
+        alignItems:'center'
+    },
+    links:
+    {
+        flex:1,
+        backgroundColor:'#fff'
     },
     btns:
     {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginVertical:15
+        marginVertical:15,
+        backgroundColor:'#fff'
     },
     txt:
     {
@@ -116,22 +129,21 @@ const styles = StyleSheet.create({
     },
     heading:
     {
-        fontSize: 35,
+        fontSize: 30,
         color: '#000',
         textAlign: 'center',
-        marginTop:20,
+        // marginTop:20,
     },
     text:
     {
-        fontSize: 15,
+        // fontSize: 15,
         color: "#000",
         marginVertical: 10
     },
     subheading:
     {
-        fontSize:22,
+        fontSize:20,
         color:'#000',
-
     }
 
 })

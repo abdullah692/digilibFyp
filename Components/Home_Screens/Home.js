@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity,Dimensions 
 import Swiper from 'react-native-swiper'
 import {useIsFocused} from '@react-navigation/native'
 
-var { width } = Dimensions.get("window");
+var { height,width } = Dimensions.get("window");
 
 function Home({navigation}) {
     const [banner, setBanner] = useState([]);
@@ -15,14 +15,15 @@ function Home({navigation}) {
             "https://library.neduet.edu.pk/sites/default/files/CIR%201.png"])
         return () => {
             setBanner([])
-            console.log('focused');
+            // console.log('focused');
         }
     }, [isVisible])
 
     return (
         <ScrollView>
 
-            <View style={styles.container}>
+
+    <View style={styles.links}>
             <View style={styles.btns}>
                     <TouchableOpacity onPress={()=>navigation.navigate('Lending')}>
                         <Text style={styles.txt}>Lending</Text>
@@ -36,9 +37,11 @@ function Home({navigation}) {
                         <Text style={styles.txt}>Digital Library</Text>
                     </TouchableOpacity>
                 </View>
+                </View>
+                <View style={styles.container}>
             <View style={styles.swiper}>
                     <Swiper
-                        style={{ height:width / 2 }}
+                        style={{ height: width / 2 }}
                         showButton={false}
                         autoplay={true}
                         autoplayTimeout={3}
@@ -55,7 +58,7 @@ function Home({navigation}) {
                     </Swiper>
               </View>
                 
-              <Image style={{ width:300, height:110 ,marginHorizontal:30 }} source={
+              <Image style={{ width:width-30, height:height/6}} source={
                         require('../../assets/abdulkalam.png')} resizeMode='contain' />
                     
                 <View style={styles.content}>
@@ -83,6 +86,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        alignItems:'center'
+        
+    },
+    links:
+    {
+        flex:1,
+        backgroundColor:'#fff'
+
     },
     swiper:
     {
@@ -93,23 +104,28 @@ const styles = StyleSheet.create({
     imageBanner:
     {
         height: width /2,
-        width: width-2,
-        marginHorizontal:1,
-        borderWidth:1,
-        borderColor:'black'
+        width: width,
+        // marginHorizontal:2,
+        borderWidth:2,
+        borderColor:'black',
+        
     },
     btns:
     {
-        flex: 1,
+        flex:1,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginVertical:15
+        marginVertical:15,
+        backgroundColor:'#fff',
+        
     },
     txt:
     {
         marginHorizontal: 10,
         fontSize: 16,
-        color: '#74b1e0'
+        color: '#74b1e0',
+        flex:1,
+        alignItems:'flex-end'
     },
     content:
     {
@@ -118,15 +134,15 @@ const styles = StyleSheet.create({
     },
     heading:
     {
-        fontSize: 28,
-        marginTop:20,
+        fontSize: 25,
+        // marginTop:20,
         marginBottom: 5,
         color: "#000",
         textAlign:"center"
     },
     text:
     {
-        fontSize: 18,
+        //  fontSize: 12,
         color: "#000",
         marginVertical: 10
     },
@@ -137,7 +153,7 @@ const styles = StyleSheet.create({
     },
     name:
     {
-        fontSize: 17,
+        // fontSize: 17,
         color: '#000',
         marginTop: 15
 

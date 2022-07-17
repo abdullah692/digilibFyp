@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image ,Dimensions} from 'react-native'
 
 export default function DigLib({ navigation }) {
+
+    var { height,width } = Dimensions.get("window");
     return (
         <ScrollView>
-            <View style={styles.container}>
+            <View  style={styles.links}>
                 <View style={styles.btns}>
                     <TouchableOpacity onPress={() => navigation.navigate('Lending')}>
                         <Text style={styles.txt}>Lending</Text>
@@ -18,11 +20,13 @@ export default function DigLib({ navigation }) {
                         <Text style={styles.txt}>Digital Library</Text>
                     </TouchableOpacity>
                 </View>
+                </View>
+                <View style={styles.container}>
                 <View style={styles.content}>
 
                     <Text style={styles.heading}>Digital Library Section</Text>
                     <View>
-                        <Image style={{ width: 350, height: 200, marginHorizontal: 5 }} source={
+                        <Image style={{ width:width-40, height: height/4 }} source={
                             require('../../assets/diglib.png')} resizeMode="contain" />
                     </View>
                     <Text style={styles.text}>
@@ -59,6 +63,12 @@ const styles = StyleSheet.create({
     {
         flex: 1,
         backgroundColor: '#fff',
+        alignItems:'center'
+    },
+    links:
+    {
+        flex:1,
+        backgroundColor:'#fff'
     },
     btns:
     {
@@ -72,10 +82,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#74b1e0'
     },
-    img:
-    {
-
-    },
     content:
     {
         marginVertical: 10,
@@ -83,20 +89,20 @@ const styles = StyleSheet.create({
     },
     text:
     {
-        fontSize: 15,
+        // fontSize: 15,
         color: "#000",
         marginVertical: 10
     },
     subheading:
     {
-        fontSize: 22,
+        fontSize: 20,
         color: '#000',
     },
     heading:
     {
-        fontSize: 32,
+        fontSize: 30,
         color: '#000',
         textAlign: 'center',
-        marginTop: 20,
+        // marginTop: 20,
     },
 })

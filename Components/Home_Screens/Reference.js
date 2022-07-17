@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native'
 
 
 export default function Reference({navigation}) {
+    var {height,width}=Dimensions.get('window')
     return (
         <ScrollView>
-            <View style={styles.container}>
+            <View style={styles.links}>
                 <View style={styles.btns}>
                 <TouchableOpacity onPress={()=>navigation.navigate('Lending')}>
                         <Text style={styles.txt}>Lending</Text>
@@ -19,9 +20,11 @@ export default function Reference({navigation}) {
                         <Text style={styles.txt}>Digital Library</Text>
                     </TouchableOpacity>
                 </View>
+                </View>
+                <View style={styles.container}>
                 <View style={styles.content}>
                     <Text style={styles.heading}>Reference Section</Text>
-                    <Image style={{ width: 350, height: 200 ,marginHorizontal:5 }} source={
+                    <Image style={{ width: width-50, height: height/5 }} source={
                         require('../../assets/reference.png') } resizeMode="contain" />
                     
                     <Text style={styles.text}>The primary objective of the Reference section is to provide information and services to support the academic and research needs of NED University students, faculty, and staff.{"\n"}{"\n"}
@@ -35,7 +38,7 @@ export default function Reference({navigation}) {
                         •  The use of the reference material is only restricted for study inside the library.{"\n"}
                     </Text>
                     <Text style={styles.heading}>Government Documents and Archives</Text>
-                    <Image style={{ width: 350, height: 200 ,marginHorizontal:5 }} source={
+                    <Image style={{ width: width-50, height: height/5 }} source={
                         require('../../assets/govntdoc.png') } resizeMode="contain" />
                   
                     <Text style={styles.text}>
@@ -49,7 +52,7 @@ export default function Reference({navigation}) {
                     </Text>
 
                     <Text style={styles.heading}>Non Book Material Section {"\n"}</Text>
-                    <Image style={{ width: 350, height: 200 ,marginHorizontal:5 }} source={
+                    <Image style={{  width: width-50, height: height/4 }} source={
                         require('../../assets/nonbookmaterial.png') } resizeMode="contain" />
                   
                     <Text style={styles.text}>
@@ -62,7 +65,7 @@ export default function Reference({navigation}) {
                         Microform, Audio/Video cassettes and Cartographic materials like maps, charts are also part of this section. The information in the material is processed, arranged and disseminated according to Dewey Decimal Classification scheme.{"\n"}{"\n"}
                     </Text>
                     <Text style={styles.heading}>PERIODICALS</Text>
-                    <Image style={{ width: 350, height: 200 ,marginHorizontal:5 }} source={
+                    <Image style={{  width: width-40, height: height/6}} source={
                         require('../../assets/periodicals.png') } resizeMode="contain" />
                   
                     <Text style={styles.text}>
@@ -86,6 +89,12 @@ const styles = StyleSheet.create({
     {
         flex: 1,
         backgroundColor: '#fff',
+        alignItems:'center'
+    },
+    links:
+    {
+        flex:1,
+        backgroundColor:'#fff'
     },
     btns:
     {
@@ -96,7 +105,7 @@ const styles = StyleSheet.create({
     txt:
     {
         marginHorizontal: 10,
-        fontSize: 16,
+        // fontSize: 16,
         color: '#74b1e0'
     },
     content:
@@ -106,20 +115,20 @@ const styles = StyleSheet.create({
     },
     text:
     {
-        fontSize: 15,
+        // fontSize: 15,
         color: "#000",
         marginVertical: 10
     },
     subheading:
     {
-        fontSize:22,
+        fontSize:20,
         color:'#000',
     },
     heading:
     {
-        fontSize: 32,
+        fontSize: 30,
         color: '#000',
         textAlign: 'center',
-        marginTop:20,
+        // marginTop:20,
     },
 })

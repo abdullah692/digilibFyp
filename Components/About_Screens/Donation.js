@@ -3,9 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'rea
 export default function Donation({ navigation }) {
     return (
         <ScrollView>
-            <View style={styles.container}>
-
-
+            <View style={styles.links}>
                 <View style={styles.btns}>
                     <TouchableOpacity onPress={() => navigation.navigate('Donation')}>
                         <Text style={styles.txt}>Donation Policy</Text>
@@ -15,6 +13,8 @@ export default function Donation({ navigation }) {
                         <Text style={styles.txt}>Staff Directory</Text>
                     </TouchableOpacity>
                 </View>
+                </View>
+                <View style={styles.container}>
                 <Text style={styles.heading}>Donation Policy</Text>
                 <Text style={styles.text}>
                     •	The Engr.Abul Kalam library selectively accepts print and electronic materials according to its subject profile. It accepts gifts and donations in the subject area of engineering, technology and allied sciences.{"\n"}{"\n"}
@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
     {
         flex: 1,
         backgroundColor: '#fff',
+        alignItems:'center'
+    },
+    links:
+    {
+        flex:1,
+        backgroundColor:'#fff'
     },
     btns:
     {
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     },
     text:
    {
-      fontSize: 15,
+    //   fontSize: 15,
       color: "#000",
       marginVertical: 10,
       marginHorizontal: 15,
@@ -61,10 +67,10 @@ const styles = StyleSheet.create({
    },
    heading:
    {
-      fontSize: 32,
+      fontSize: 30,
       color: '#000',
       textAlign: 'center',
-      marginTop: 20,
+    //   marginTop: 20,
    },
 
 
