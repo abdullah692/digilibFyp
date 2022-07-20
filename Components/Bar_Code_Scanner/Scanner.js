@@ -75,57 +75,16 @@
 
 // export default Scanner
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
-  },
-  maintext: {
-    fontSize: 20,
-    fontFamily: 'monospace',
-    textAlign: 'center',
-    marginTop: 50,
-    margin: 15
-  },
-  isbn:
-  {
-    marginBottom: '30%',
 
-  },
-  barcodebox: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 400,
-    width: 300,
-    overflow: 'hidden',
-    borderRadius: 30,
-  },
-  verify:
-  {
-    borderWidth: 1,
-    color: 'white',
-    backgroundColor: 'purple',
-    alignItems: 'center',
-    marginTop: 15,
-    padding: 10,
-    fontSize: 20,
-    textAlign: 'center',
-    borderRadius: 25
-
-  }
-
-
-})
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Button, TouchableOpacity, Dimensions } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function Scanner({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState('Not yet scanned')
+  const [text, setText] = useState('Not yet Scanned')
+  var {height,width}=Dimensions.get('window')
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -157,9 +116,9 @@ export default function Scanner({ navigation }) {
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={{ height: 400, width: 400 }} />
       </View>
-      <View style={styles.isbn}>
+      <View >
         <Text style={styles.maintext}>{text}</Text>
-        {scanned && <Button title={'Scan again?'} color='tomato' onPress={() => setScanned(false)} />}
+        {scanned && <Button title={'Scan again?'} color='coral' onPress={() => setScanned(false)} />}
         <TouchableOpacity >
           <Text style={styles.verify} onPress={() => navigation.navigate("Isbn", { isbn: text })}>
             Check the value
@@ -169,3 +128,42 @@ export default function Scanner({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  },
+  maintext: {
+    fontSize: 20,
+    fontFamily: 'roboto',
+    textAlign: 'center',
+    marginVertical:30,
+    
+  },
+  barcodebox: {
+    marginTop:50,
+    alignItems: 'center',
+    // justifyContent: 'center',
+    height: 300,
+    width: 300,
+    overflow: 'hidden',
+    borderRadius: 40,
+  },
+  verify:
+  {
+    color: 'white',
+    backgroundColor: '#219ebc',
+    // alignItems: 'center',
+    marginTop:25,
+    paddingVertical: 15,
+    paddingHorizontal:20,
+    fontSize: 20,
+    textAlign: 'center',
+    borderRadius: 25,   
+  }
+
+
+})

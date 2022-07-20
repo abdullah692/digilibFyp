@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useState ,useContext,useReducer} from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image,Dimensions } from 'react-native';
 import Error from './Error';
 import {signIn} from '../store/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ function Login(props) {
   const [allEntry, setAllEntry] = useState([]);
   const userToken = useSelector((state) => state.auth.userToken)
   const dispatch = useDispatch()
-  
+  var {width,height}=Dimensions.get('window'); 
 
   
   // const userDetail = {
@@ -78,7 +78,7 @@ function Login(props) {
     <View style={styles.container}>
 
       <View style={styles.logo}>
-        <Image style={{ width: 150, height: 150 }} source={
+        <Image style={{ width: width, height: height/6 }} source={
           require('../assets/fyplogo.png')} resizeMode="contain" />
       </View>
       <Text style={styles.register}>WELCOME BACK!</Text>
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   logo:
   {
-    marginTop: -50,
+    marginTop: -120,
   },
   register: {
     fontSize: 30,
@@ -161,16 +161,16 @@ const styles = StyleSheet.create({
     marginBottom: 20
 
   },
-  middle: {
-    margin: 10,
-    textAlign: 'center',
-  },
-  border:
-  {
-    borderColor: '#0F9E90',
-    borderWidth: 2,
-    marginVertical: 30
-  },
+  // middle: {
+  //   margin: 10,
+  //   textAlign: 'center',
+  // },
+  // border:
+  // {
+  //   borderColor: '#0F9E90',
+  //   borderWidth: 2,
+  //   marginVertical: 30
+  // },
   picker:
   {
     width: 250,

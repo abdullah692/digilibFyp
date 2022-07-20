@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, Text ,StyleSheet, TouchableOpacity ,Image} from 'react-native'
+import { View, Text ,StyleSheet, TouchableOpacity ,Image, Dimensions} from 'react-native'
 
 export default function Main( {navigation}) {
+    var {width,height}=Dimensions.get('window')
     return (
         <View style={styles.container}>
           <View style={styles.logo}>
-          <Image style={{ width:150, height:150,marginTop:25 }} source={
+          <Image style={{ width:width, height:height/5 }} source={
                         require('../assets/fyplogo.png') } resizeMode="contain" />
             </View>
          <View  stlye={styles.btn}>
@@ -22,7 +23,7 @@ export default function Main( {navigation}) {
           </TouchableOpacity>
         
           <View style={styles.footer}>
-          <Image style={{ width:300, height:80,marginTop:50 }} source={
+          <Image style={{ width:width-50, height:height/8 }} source={
                         require('../assets/abdulkalam.png') } resizeMode="contain" />
           </View>
         </View>
@@ -33,12 +34,12 @@ const styles=StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        justifyContent:'center',
+        // justifyContent:'center',
         alignItems:'center'
     },
     logo:
     {
-        marginTop:30,
+        marginTop:50,
     
     },
     btn:

@@ -28,9 +28,9 @@ function Card({title, image, subtitle, author ,booksData}) {
                 <Text style={styles.subtitle}>
                     {subtitle ? subtitle : 'A good learning eperienced book'}
                 </Text>
-                <Text style={styles.author}>
+                {/* <Text style={styles.author}>
                     Author: {author}
-                </Text>
+                </Text> */}
                 </TouchableOpacity>    
             </View>
             
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
         // height: width/1.3,
         padding: 10,
         borderRadius: 10,
-        marginTop: 25,
-        marginBottom: 25,
+        marginTop: 20,
+        marginBottom: 20,
         marginLeft: 10,
         alignItems: 'center',
         elevation: 12,
@@ -80,19 +80,21 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20,
         textAlign: 'center',
-        marginTop: 70
+        marginTop: 90
     },
     subtitle: {
 
         fontSize: 15,
         textAlign: 'center',
+        // marginTop:-20
     },
     author:
     {
         fontSize:16,
         color:'black',
         marginTop:5,
-        fontFamily:'fantasy'
+        fontFamily:'fantasy',
+        margin:10
 
     }
 })

@@ -1,11 +1,12 @@
-import { View, Text,StyleSheet ,Image, TouchableOpacity} from 'react-native';
+import { View, Text,StyleSheet ,Image, TouchableOpacity,Dimensions} from 'react-native';
 import React from 'react';
 
 export default function Welcome({navigation}) {
+    var {width,height}=Dimensions.get('window');
   return (
     <View style={styles.contianer}>
        <View style={styles.logo}>
-          <Image style={{ width:150, height:200 }} source={
+          <Image style={{ width:width, height:height/4 }} source={
                         require('../assets/congrats.png') } resizeMode="contain" />
             </View>
             <Text style={styles.txt}>WELCOME TO HOMEPAGE</Text>
@@ -13,7 +14,7 @@ export default function Welcome({navigation}) {
                 <Text style={styles.btn}> NEXT </Text>
             </TouchableOpacity>
      <View style={styles.footer}>
-          <Image style={{ width:300, height:100 }} source={
+          <Image style={{ width:width-70, height:height/8 }} source={
                         require('../assets/abdulkalam.png') } resizeMode="contain" />
           </View>
     </View>
@@ -30,7 +31,7 @@ const styles=StyleSheet.create({
     },
     logo:
     {
-        marginTop:30,
+        marginTop:-90,
     
     },
     txt:
@@ -52,6 +53,6 @@ const styles=StyleSheet.create({
     },
     footer:
     {
-        marginTop:80
+        marginTop:70
     }
 })

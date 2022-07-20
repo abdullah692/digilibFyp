@@ -10,7 +10,7 @@ function Search({ navigation }) {
 
   const API_KEY = 'AIzaSyAKNZSHQPpky7-XGmvh7TIM3lQLzalqeZw';
   const [data, setData] = useState([])
-  const [query, setQuery] = useState('react');
+  const [query, setQuery] = useState('Javascript');
   const [isloaded, setLoaded] = useState(true);
   
 
@@ -24,7 +24,7 @@ function Search({ navigation }) {
   // }
 
   const Api = async () => {
-    const data = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${API_KEY}`)
+    const data = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${API_KEY}&maxResults=20`)
     const res = await data.json();
     setData(res.items);
     setLoaded(false);
@@ -52,16 +52,37 @@ function Search({ navigation }) {
     console.log(value);
 
   })
+  
+  if(!data)
+  {
+    return(
+      <View style={styles.contianer}>
+        <Searchbar
+      placeholder="Search Books.."
+      onChangeText={handleChange}
+      value={data}
+    />
+    <View style={{margin:20}}>
+        <Text style={{textAlign:'center'}}>Enter some keyword in Search Bar </Text>
+        </View>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.contianer}>
-      <TextInput style={styles.Search}
+      {/* <TextInput style={styles.Search}
         placeholder='Search a book'
         onChangeText={handleChange}
       >
-        <Icon name='search' size={22} color='#74b1e0' style={styles.searchicon} placeholder='Search a book' />
-        
-      </TextInput>
+         <Icon name='search' size={22} color='#74b1e0'/>
+      </TextInput> */}
+      <Searchbar
+      placeholder="Search Books.."
+      onChangeText={handleChange}
+      value={data}
+    />
+     
       {isloaded ? (
         <View>
           <ActivityIndicator size={30} color='#74b1e0' />
@@ -82,12 +103,14 @@ function Search({ navigation }) {
           />
         </View>
 
-
       )
       }
     </View>
+    
   )
+
 }
+
 export default Search
 
 const styles = StyleSheet.create({
@@ -104,9 +127,7 @@ Searchbar:
   
   marginTop:-50,
   marginBottom:20,
-  marginLeft:30
-
-
+  marginLeft:30,
 },
   Search: {
     borderWidth: 1,

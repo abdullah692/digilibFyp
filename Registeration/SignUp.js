@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image ,Dimensions} from 'react-native';
 import Error from './Error';
 import { Picker } from '@react-native-picker/picker';
 import Otp from './Otp';
@@ -15,6 +15,7 @@ function SignUp(props) {
   const [picker, setPicker] = useState('Both Department');
   const [allEntry, setAllEntry] = useState([]);
   
+  var {width,height}=Dimensions.get('window');
 
   const handleSubmit = () => {
     const users = {
@@ -52,7 +53,7 @@ function SignUp(props) {
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
-        <Image style={{ width: 150, height: 150 }} source={
+        <Image style={{ width: width, height: height/6 }} source={
           require('../assets/fyplogo.png')} resizeMode="contain" />
       </View>
 
@@ -75,7 +76,7 @@ function SignUp(props) {
       <View style={styles.border}>
         <Picker
           selectedValue={picker}
-          style={{ height: 50, width: 150 }}
+          // style={{ height: 50, width: 150 }}
           onValueChange={(itemValue) => setPicker(itemValue)}
           style={styles.picker}
         >
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
   },
   picker:
   {
-    width: 280,
+    width: 240,
     color: '#000'
   },
   acount:

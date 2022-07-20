@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity ,Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity ,Image,Dimensions } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import Error from './Error';
 import Home from '../Components/Home_Screens/Home';
@@ -11,6 +11,7 @@ function Password({ navigation }) {
   const [error, setError] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [allEntry, setAllEntry] = useState([]);
+  var {width,height}=Dimensions.get('window');
   const handleSubmit = () => {
     const pass = {
       password: password,
@@ -35,7 +36,7 @@ function Password({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
-          <Image style={{ width:150, height:160 }} source={
+          <Image style={{ width:width, height:height/6 }} source={
                         require('../assets/lock.png') } resizeMode="contain" />
             </View>
       <TextInput
@@ -95,7 +96,10 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
       marginBottom:10
     },
-    
+    logo:
+  {
+    marginTop: -150,
+  },
     text: {
     borderBottomWidth: 2,
     margin: 10,

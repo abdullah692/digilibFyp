@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity,Image } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import Password from './Password';
-import { set } from 'react-native-reanimated';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity,Image ,Dimensions} from 'react-native';
+
 
 function Otp(props) {
   const { navigation } = props;
   const [pin, setPin] = useState('');
+  var {width,height}=Dimensions.get('window');
 
   const handleNext = () => {
     navigation.navigate('Password');
@@ -17,7 +16,7 @@ function Otp(props) {
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
-          <Image style={{ width:150, height:150 }} source={
+          <Image style={{ width:width, height:height/6 }} source={
                         require('../assets/notification.png') } resizeMode="contain" />
             </View>
       <Text style={styles.register}>VERIFICATION</Text>
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
   },
   logo:
   {
-    marginTop: -70,
+    marginTop: -120,
   },
   register: {
     fontSize:30,
@@ -80,7 +79,6 @@ const styles = StyleSheet.create({
       paddingHorizontal: 20,
       paddingVertical: 10,
       marginBottom:10
-  
     },
   
   input: {
