@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image ,Dimensions} from 'react-native';
 import Error from './Error';
 import { Picker } from '@react-native-picker/picker';
-import Otp from './Otp';
+import axios from 'axios'
+import { IP,PORT } from '../constant';
+
 // import Register from './Register';
 
 
@@ -20,9 +22,10 @@ function SignUp(props) {
   const handleSubmit = () => {
     const users = {
       email: email,
-      portal: portal,
-      picker: picker
-    };    
+      StudentId: parseInt(portal),
+      registrationType: picker,
+    };  
+    console.log('Users',users)  
 
     if (email === '' && portal === '') {
       setError('Please fill your Credentials');
@@ -33,16 +36,27 @@ function SignUp(props) {
     else if (email === '') {
       setError('Please Enter Your Email');
     }
-    else (email && portal)
-    {
-      setAllEntry([users, ...allEntry])
-      const JSONdata=JSON.stringify(users);
-      console.log(JSONdata);
-      console.log(allEntry);
-      console.log('Success..!!');
-    }
+  
+   else {
+    setError('');
+    axios
+      .post(`http://${IP}:${PORT}/api/verifyUser`, users)
+      .then(res => {
+          const result = res.data;
+          console.log('sign up Ap response log', res.data);
+      
+          if (!result.success) {
+              setError(result.message);
+            } else {
+                setPortal('');
+                setEmail('');
+                setError('');
+          navigation.navigate('Registration',{screen:"Otp", params:users});
+        }
+      })
+      .catch(err => console.log(err));
   };
-
+}
 
 
   const handleNext = () => {

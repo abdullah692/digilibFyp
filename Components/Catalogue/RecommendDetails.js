@@ -1,15 +1,15 @@
 import { View, Text, StyleSheet, ScrollView, Image, Linking } from 'react-native'
 import React, { useState } from 'react'
-import { sub } from 'react-native-reanimated';
 
-const BookDetails = ({ route }) => {
-  const { bookDetails} = route.params;
-  console.log('Details', bookDetails);
-  // console.log('RecommendDataDet',RecommendbookDet)
+
+const RecommendDetails = ({ route }) => {
+  const { RecommendbookDet } = route.params;
+  console.log('RecommendDataDet',RecommendbookDet)
   const [isTruncated, setTruncated] = useState(true);
-  const [available, setAvailable] = useState(true);
+//   const [available, setAvailable] = useState(true);
 
-  const descriptionValue = bookDetails?.volumeInfo?.description;
+
+  const descriptionValue = RecommendbookDet?.volumeInfo?.description;
   console.log(descriptionValue);
   const description = isTruncated ? descriptionValue?.slice(0, 150)+"..." : descriptionValue;
 
@@ -44,12 +44,12 @@ const BookDetails = ({ route }) => {
 
 
   const subtitle=()=>{
-    if(bookDetails?.volumeInfo?.subtitle )
+    if(RecommendbookDet?.volumeInfo?.subtitle )
     {
       return (
         <View>
           <Text style={{ marginHorizontal: 10, fontSize: 22, fontFamily: 'Roboto', color: 'coral' }}>
-          SubTitle: {bookDetails?.volumeInfo?.subtitle ? bookDetails?.volumeInfo?.subtitle : " "}
+          SubTitle: {RecommendbookDet?.volumeInfo?.subtitle ? RecommendbookDet?.volumeInfo?.subtitle : " "}
           </Text>
         </View>
       )
@@ -57,14 +57,6 @@ const BookDetails = ({ route }) => {
     else 
     return null;
   }
-  // const availability=()=>{
-  //   if(description == "No description is available")
-  //   return setAvailable(false);
-  //   else
-  //   {
-  //     return description
-  //   }
-  // }
   return (
     <View style={styles.container}>
       <View>
@@ -74,18 +66,18 @@ const BookDetails = ({ route }) => {
             <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Status: <Text style={{ color: '#3ED443' }}>Book is Available </Text></Text>
             <View style={styles.content}>
               <Text style={{ marginVertical: 10, marginHorizontal: 10, fontSize: 30, fontFamily: 'fantasy', color: '#219ebc' }}>
-                Title: {bookDetails?.volumeInfo?.title}</Text>
+                Title: {RecommendbookDet[0]?.volumeInfo?.title}</Text>
                 {/* <Text style={{ marginHorizontal: 10, fontSize: 22, fontFamily: 'Roboto', color: '#000' }}>
-                SubTitle: {bookDetails?.volumeInfo?.subtitle ? bookDetails?.volumeInfo?.subtitle : " "}</Text>
+                SubTitle: {RecommendbookDet?.volumeInfo?.subtitle ? RecommendbookDet?.volumeInfo?.subtitle : " "}</Text>
                  */}
                 {subtitle()} 
-              <Image source={{ uri: bookDetails?.volumeInfo?.imageLinks?.thumbnail ? bookDetails?.volumeInfo?.imageLinks?.thumbnail : '	https://al-ameenacademy.org/wp-content/themes/eikra/assets/img/noimage-420x273.jpg' }}
+              <Image source={{ uri: RecommendbookDet?.volumeInfo?.imageLinks?.thumbnail ? RecommendbookDet?.volumeInfo?.imageLinks?.thumbnail : '	https://al-ameenacademy.org/wp-content/themes/eikra/assets/img/noimage-420x273.jpg' }}
                 style={{ height: 200, width: 200, marginHorizontal: 80, marginVertical: 15 }}
                 resizeMode='contain' />
-              <Text style={{ marginHorizontal: 10, fontSize: 18, color: '#000' }}>Authors: {bookDetails?.volumeInfo?.authors}</Text>
-              <Text style={{ marginHorizontal: 10, fontSize: 18, color: '#000' }}>Publisher: {bookDetails?.volumeInfo?.publisher}</Text>
-              <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Publish Date: {bookDetails?.volumeInfo?.publishedDate}</Text>
-              <Text style={styles.link} onPress={() => Linking.openURL(bookDetails.volumeInfo.previewLink)}>
+              <Text style={{ marginHorizontal: 10, fontSize: 18, color: '#000' }}>Authors: {RecommendbookDet?.volumeInfo?.authors}</Text>
+              <Text style={{ marginHorizontal: 10, fontSize: 18, color: '#000' }}>Publisher: {RecommendbookDet?.volumeInfo?.publisher}</Text>
+              <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Publish Date: {RecommendbookDet?.volumeInfo?.publishedDate}</Text>
+              <Text style={styles.link} onPress={() => Linking.openURL(RecommendbookDet.volumeInfo.previewLink)}>
                 More Details
               </Text>
               <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000', fontSize: 17 }}>Description: </Text>
@@ -100,7 +92,7 @@ const BookDetails = ({ route }) => {
   )
 }
 
-export default BookDetails
+export default RecommendDetails
 
 const styles = StyleSheet.create({
   container: {

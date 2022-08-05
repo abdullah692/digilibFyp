@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image, Button, Dimensions ,TouchableOpacity} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
 
 
 var { width } = Dimensions.get('window');
@@ -25,6 +26,7 @@ function Card({title, image, subtitle, author ,booksData}) {
                 <Text style={styles.title}>
                     {title.length > 15 ? title.substring(0, 15) + "..." : title}
                 </Text>
+                
                 <Text style={styles.subtitle}>
                     {subtitle ? subtitle : 'A good learning eperienced book'}
                 </Text>
@@ -56,6 +58,10 @@ const styles = StyleSheet.create({
         elevation: 12,
         backgroundColor: 'white',
 
+    },
+    cards:
+    {
+        flex:1
     },
 
     image:

@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity ,Image,Dimensions } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import Error from './Error';
-import Home from '../Components/Home_Screens/Home';
-import { createStackNavigator } from '@react-navigation/stack';
+import axios from 'axios';
+import { IP ,PORT} from '../constant';
 
-function Password({ navigation }) {
+function Password(props) {
+  const {navigation, route} = props;
+  const [user, setUser] = useState(route.params || {});
   const [password, setPassword] = useState('');
   const [cnfrmPassword, setCnfrmPassword] = useState('');
   const [error, setError] = useState('');
@@ -13,24 +15,34 @@ function Password({ navigation }) {
   const [allEntry, setAllEntry] = useState([]);
   var {width,height}=Dimensions.get('window');
   const handleSubmit = () => {
-    const pass = {
-      password: password,
-      confirmPassword: cnfrmPassword
-    };
+    const body = {...user};
+    body.password = password;
+    
     if (password === '' && cnfrmPassword === '') {
       setError('Please ! Enter your Password');
     } else if (password != cnfrmPassword) {
-      setError('The Password you enter is incorrect');
-    } else {
-      console.log('Success..!!');
-    }
-    setAllEntry([pass, ...allEntry])
-    console.log(pass);
-    console.log(allEntry);
+      setError('The Password you enter is not matched');
+    } else 
+    { 
+      axios
+    .post(`http://${IP}:${PORT}/api/setPassword`, body)
+    .then(res => {
+      setPassword('');
+      setCnfrmPassword('');
+      setError('');
+      setShowPass(false);
+      const result = res.data;
+      if (!result.success) return setError('Invalid request');
+    })
+    .catch(err => console.log(err));
+      navigation.navigate('Welcome') || navigation.popToTop();
+      console.log("Password body", body)
+  }
+    
   };
   const handleNext = () => {
     handleSubmit();
-    navigation.navigate('Welcome')
+    // navigation.navigate('Welcome')
   };
 
   return (

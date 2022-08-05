@@ -4,11 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import DrawerContainer from './Drawer/DrawerContainer';
 import SplashScreen from 'react-native-splash-screen';
 import { store } from './store'
+
  import { Provider } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeBaseProvider } from 'native-base';
 
  function App() {
+
   useEffect(()=>{
     SplashScreen.hide();
   })

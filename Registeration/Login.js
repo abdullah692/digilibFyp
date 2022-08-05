@@ -4,12 +4,14 @@ import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image,Dimensions }
 import Error from './Error';
 import {signIn} from '../store/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { IP, PORT } from '../constant';
 
 // import Register from './Register';
 
 function Login(props) {
   const { navigation } = props;
-  const [portal_id, setPortal] = useState('');
+  const [portal_Id, setPortal] = useState('');
   const [error, setError] = useState('');
   const [Password, setPassword] = useState('');
   const [allEntry, setAllEntry] = useState([]);
@@ -25,39 +27,68 @@ function Login(props) {
 
  
 
-  const loggedIn = (portal,password) => {
-    const users = {
-      portal: portal_id,
-      password: Password
-    };
-    if (portal_id === '' && Password === '') {
+  // const loggedIn = (portal,password) => {
+  //   const users = {
+  //     portal: portal_id,
+  //     password: Password
+  //   };
+
+    const loggedIn = (portal, password) => 
+    {
+      const user = {
+        StudentId: portal_Id,
+        // registrationType: picker,
+      };
+
+    if (portal === '' && password === '') {
       setError('Please fill your Credentials');
     }
-    else if (portal_id === '') {
+    else if (portal === '') {
       setError('Please Enter Your Portal-Id');
     }
-    else if (Password === '') {
+    else if (password === '') {
       setError('Please Enter Your Password')
     }
-    else (Password && portal_id)
-    {
-      setAllEntry([users, ...allEntry])
+    // else (password && portal)
+    // {
+    //   setAllEntry([users, ...allEntry])
 
-      console.log(users);
-      console.log(allEntry);
-      console.log('Success..!!');
+    //   console.log(users);
+    //   console.log(allEntry);
+    //   console.log('Success..!!');
+    // }
+    else {
+      setError('');
+      let body = {
+        StudentId: parseInt(portal),
+        password: password,
+      };
+      axios
+        .post(`http://${IP}:${PORT}/api/signIn`, body)
+        .then(res => {
+          console.log('Api Respones ====', res.data);
+          const result = res.data;
+          if (result.success) {
+            dispatch(signIn({result}));
+            navigation.navigate('Home') || navigation.popToTop();
+          } else {
+            return alert('Invalid request');
+          }
+        })
+        .catch(err => console.log(err));
     }
-    console.log(portal,password);
-    if(!error)
-    {
-      dispatch(signIn({portal,password}));
-      console.log("In login component Token",userToken);
-     if(userToken)
-     { 
-       navigation.navigate('Home') || navigation.popToTop(); 
-     }
+
+//     console.log(portal,password);
+//     if(!error)
+//     {
+//       dispatch(signIn({portal,password}));
+//       console.log("In login component Token",userToken);
+//      if(userToken)
+//      { 
+//        navigation.navigate('Home') || navigation.popToTop(); 
+//      }
     
-}
+// }
 
   // const handleNext = () => {
   //   handleSubmit();
@@ -86,7 +117,7 @@ function Login(props) {
       <TextInput
         style={styles.text}
         placeholder="Portal_Id"
-        value={portal_id}
+        value={portal_Id}
         keyboardType="decimal-pad"
         onChangeText={id => setPortal(id.toLowerCase())}
       />
@@ -106,7 +137,7 @@ function Login(props) {
           <Text style={styles.middle}>Don't have any account yet?</Text>
           <Button title="Register"/>
         </View> */}
-      <TouchableOpacity onPress={() => loggedIn(portal_id,Password)}>
+      <TouchableOpacity onPress={() => loggedIn(portal_Id,Password)}>
         <Text style={styles.btn}> NEXT </Text>
       </TouchableOpacity>
       <View style={styles.forget}>
@@ -179,7 +210,7 @@ const styles = StyleSheet.create({
     color: '#000'
   },
   forget:
- {
+ {  
    flexDirection:'row'
  }
 });

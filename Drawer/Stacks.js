@@ -22,6 +22,8 @@ import Isbn from '../Components/Bar_Code_Scanner/Isbn';
 import Card from '../Components/Catalogue/Card';
 import Search from '../Components/Catalogue/Search';
 import BookDetails from '../Components/Catalogue/BookDetails';
+import Recommend from '../Components/Catalogue/Recommend';
+import RecommendDetails from '../Components/Catalogue/RecommendDetails';
 
 const Stack = createStackNavigator();
 
@@ -96,6 +98,8 @@ function StackRegisteration() {
         <Stack.Screen name="Search" component={Search}  options={{headerShown :false}} />
         <Stack.Screen name="Card" component={Card}  options={{headerShown :true}} />
         <Stack.Screen name="BookDetails" component={BookDetails}  options={{headerShown :true}} />
+        <Stack.Screen name="Recommend" component={Recommend}  options={{headerShown :true}} />
+        <Stack.Screen name="RecommendBookDetails" component={RecommendDetails}  options={{headerShown :true}} />
       </Stack.Navigator>
     );
   }

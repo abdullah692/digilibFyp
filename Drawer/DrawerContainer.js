@@ -14,14 +14,31 @@ import Contact from '../Components/Contact_Screens/ContactUs';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Icons from 'react-native-vector-icons/Ionicons';
 import Icns from 'react-native-vector-icons/AntDesign';
+import {updateToken} from "../store/auth/authSlice"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Drawer = createDrawerNavigator();
 
+
 export default function DrawerContainer() {
   const userToken = useSelector((state) => state.auth.userToken)
   var {width,height}=Dimensions.get('window')
+  const dispatch=useDispatch();
 
+  const UpdateTokenHandle=async()=>{
+   let token=await AsyncStorage.getItem('token')
+
+   if(token)
+   {
+    dispatch(updateToken(token))
+   }
+
+  }
+
+  useEffect (()=>{
+    UpdateTokenHandle();
+  },[])
 
   function HeaderImage() {
     return (

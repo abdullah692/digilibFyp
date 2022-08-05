@@ -1,17 +1,43 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity,Image ,Dimensions} from 'react-native';
+var { height,width } = Dimensions.get("window");
+import axios  from 'axios';
+import Error from './Error';
+import { PORT,IP } from '../constant';
 
 
 function Otp(props) {
-  const { navigation } = props;
-  const [pin, setPin] = useState('');
-  var {width,height}=Dimensions.get('window');
 
+  const {navigation, route} = props;
+  const [user, setUser] = useState(route.params || {});
+  // console.log(first)
+  const [pin, setPin] = useState('');
+  const [error, setError] = useState('');
   const handleNext = () => {
-    navigation.navigate('Password');
-    setPin('');
-  };
+    // navigation.navigate('Password', user);
+    setError('');
+    const body = {...user};
+    body.otp = pin;
+    console.log('Body',body)
+    axios
+      .post(`http://${IP}:${PORT}/api/verifyOtp`, body)
+      .then(res => {
+        const result = res.data;
+        console.log('verify opt response', res.data);
+        if (!result.success) {
+          setError(result.message);
+        } else {
+          setError('');
+          setPin('');
+    
+    }})
+    
+    .catch(err => {console.log(err) ; alert(err)});
+          navigation.navigate('Registration',{screen:"Password", params:user});
+    };
+
+    console.log("otp", pin)
 
   return (
     <View style={styles.container}>
@@ -27,9 +53,8 @@ function Otp(props) {
           value={pin}
           keyboardType="number-pad"
           placeholder='* * * *'
-          onChange={(pin) => {
-            setPin(pin)
-          }}
+          onChangeText={setPin}
+          
           style={styles.input}
         />
       </View>
@@ -39,10 +64,14 @@ function Otp(props) {
         <Text style={styles.btn}> VERIFY </Text>
       </TouchableOpacity>
       </View>
+      <View style={styles.error}>
+        {error ? <Error message={error} /> : null}
+      </View>
       <View style={{flexDirection:'row' , margin:15}}>
         <Text >
           Didn't recieve an OTP?
         </Text>
+       
         <TouchableOpacity>
           <Text style={{ color: '#74b1e0'  ,marginHorizontal:10}}>Resend OTP</Text>
         </TouchableOpacity>
