@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     },
     txt:
     {
-        marginHorizontal: 10,
+        marginHorizontal: 6,
         // fontSize: 16,
         color: '#74b1e0'
     },

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import UserData from './UserData.json'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -6,6 +6,7 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import RNPrint from 'react-native-print';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
+import { IP ,PORT} from '../../constant';
 
 let tem=[
   {
@@ -51,7 +52,8 @@ USER_ID: "4107192",
 
 export default function UserProfile({ navigation }) {
   const [userdata, setuserData] = useState(UserData);
-  const [register,setReigster]=useState(null);
+  const [register,setReigster]=useState('');
+  const [isloaded,setLoaded]=useState(true);
 
 
   // console.log(userdata[1]);
@@ -106,21 +108,25 @@ export default function UserProfile({ navigation }) {
 
 
   const User = async () => {
+    console.log('User profile error');
     let token = await AsyncStorage.getItem('token')
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     };
 
-    const response = axios.get(`http://192.168.8.100:8080/api/getuser`, config)
+    await axios.get(`http://${IP}:${PORT}/api/getuser`, config)
       .then(res => {
         console.log('Api Respones ====', res.data)
         setuserData(res.data?.user);
         setReigster(res.data?.regType[0])
+        console.log('Registeration type',register)
+        setLoaded(false);
       }).catch((err) => {
+        
         console.log('Error Message in User Profile', err)
       })
   }
-
+console.log('User data',userdata)
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus',()=>{
@@ -128,40 +134,62 @@ export default function UserProfile({ navigation }) {
     })     
     return unsubscribe
   },[navigation])
-  // useEffect(() => {
-  //   User();
-  // }, [])
+
+  useEffect(() => {
+     User();
+    console.log('Profile user');
+  }, [])
+
+ 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.heading}>User Profile</Text>
-      </View>
-      <TouchableOpacity>
-        <Icon name="file-pdf-o" size={30} style={styles.pdf} onPress={() => printPDF()} />
-      </TouchableOpacity>
-
-      <Image style={{ width: 300, height: 170, marginVertical: 15 }} source={
-        require('../../assets/person.png')} resizeMode='contain' />
-      <ScrollView>
-        <View style={styles.border}>
-          {userdata.map((item, index) => (
-            <View key={index}>
-              <Text style={styles.info}>Batch: {item.BATCH_NO}{'\t\t\t\t'} Roll No: {item.ROLL_NO} {'\n'}</Text>
-              {/* <Text style={styles.info}>Year: {item.year}{'\n'}</Text> */}
-              <Text style={styles.info}>Name: {item.NAME}{'\n'}</Text>
-              <Text style={styles.info}>Name: {item.FATHER_NAME}{'\n'}</Text>
-              <Text style={styles.info}>Department: {item.DEPT_CO}
-                {'\n'}{'\n'}
-                {/* Membership: {register.REG_TYPE} */}
-                Borrow-No: {item.BORROWER_NO}
-                {'\n'}{'\n'}
-                User-Id : {item.USER_ID}
-              </Text>
-            </View>
-          ))}
+      {
+        isloaded ? (
+          <View>
+            <ActivityIndicator size={30} color='#74b1e0' />
+          </View>
+        ):(
+          <>        
+            <View>
+          <Text style={styles.heading}>User Profile</Text>
         </View>
-      </ScrollView>
-    </View>
+        <TouchableOpacity>
+          <Icon name="file-pdf-o" size={30} style={styles.pdf} onPress={() => printPDF()} />
+        </TouchableOpacity>
+  
+        <Image style={{ width: 200, height: 120, marginVertical: 15 }} source={
+          require('../../assets/person.png')} resizeMode='contain' />
+        <ScrollView>
+          <View style={styles.border}>
+             <Text style={styles.info}>Membership : {register?.REG_TYPE}{'\n'}</Text>
+            {userdata.map((item, index) => (
+              <View key={index}>
+                <Text style={styles.info}>User-Id : {item.USER_ID} {'\n'}</Text>
+                <Text style={styles.info}>Batch: {item.BATCH_NO}{'\t\t\t\t'} Roll No: {item.ROLL_NO} {'\n'}</Text>
+                {/* <Text style={styles.info}>Year: {item.year}{'\n'}</Text> */}
+                <Text style={styles.info}>Name: {item.NAME}{'\n'}</Text>
+                <Text style={styles.info}>Father Name: {item.FATHER_NAME}{'\n'}</Text>
+                <Text style={styles.info}>Department: {item.DEPT_CO}
+                  {'\n'}{'\n'}
+                  {/* Membership: {register.REG_TYPE} */}
+                  Borrow-No: {item.BORROWER_NO}
+                  
+                  
+                </Text>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+        </>
+      
+        )
+
+    
+
+        
+      }
+      </View>
+     
   )
 }
 
@@ -176,7 +204,7 @@ const styles = StyleSheet.create({
   },
   heading:
   {
-    fontSize: 45,
+    fontSize: 35,
     textAlign: 'center',
     borderColor: '#36B5E4',
     color: '#000',

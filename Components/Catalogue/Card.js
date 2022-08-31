@@ -1,45 +1,69 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image, Button, Dimensions ,TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, Image, Button, Dimensions, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-import { Divider } from 'react-native-paper';
+import { Rating } from 'react-native-ratings';
+
 
 
 var { width } = Dimensions.get('window');
-function Card({title, image, subtitle, author ,booksData}) {
+function Card({ title, image, subtitle, author, booksData ,rating}) {
+
+
+
+    let Subtitle = subtitle?.length > 15 ? subtitle.substring(0, 30) + "..." : subtitle
     // const { books } = props
     // console.log('Cards data', books);
- 
+
     //  const { title, image, subtitle, author ,booksData} = props
 
     // const { image, price, name, countInStock } = props;
     const navigation = useNavigation();
-    const [bookItem,setBookItem]=useState(booksData);
-    console.log('All books Data',bookItem);
+    const [bookItem, setBookItem] = useState(booksData);
+    // console.log('All books Data', bookItem);
+    // console.log('Ratings', bookItem?.volumeInfo?.averageRating)
+     let rateOfBook = rating ? rating : 0;
+    const [reviews, setReviews] = useState(rateOfBook);
+    // console.log('Reviews',reviews)
+    const ratingCompleted = (rating) => {
+        if (reviews == undefined) 
+        {
+            setReviews(0)
+        }
+    }
+
     return (
         <View>
             <View style={styles.contianer} >
-            <TouchableOpacity onPress={() => [navigation.navigate("BookDetails", { bookDetails : bookItem })]}>
-                <Image style={styles.image}
-                    resizeMode="contain"
-                    source={{ uri: image ? image : 'https://eaklibrary.neduet.edu.pk:8443/catalog/bk/No-book.png' }} />
-                <View style={styles.card} />
-                <Text style={styles.title}>
-                    {title.length > 15 ? title.substring(0, 15) + "..." : title}
-                </Text>
-                
-                <Text style={styles.subtitle}>
-                    {subtitle ? subtitle : 'A good learning eperienced book'}
-                </Text>
-                {/* <Text style={styles.author}>
+                <TouchableOpacity onPress={() => [navigation.navigate("BookDetails", { bookDetails: bookItem })]}>
+                    <Image style={styles.image}
+                        resizeMode="contain"
+                        source={{ uri: image ? image : 'https://eaklibrary.neduet.edu.pk:8443/catalog/bk/No-book.png' }} />
+                    <View style={styles.card} />
+                    <Text style={styles.title}>
+                        {title}
+                    </Text>
+                    <Text style={styles.subtitle}>
+                        {Subtitle ? Subtitle : 'A good learning eperienced book'}
+                    </Text>
+                    {/* <Text>Ratings : {bookItem?.volumeInfo?.averageRating ? bookItem?.volumeInfo?.averageRating : 0}</Text> */}
+                    {/* <Text style={styles.author}>
                     Author: {author}
                 </Text> */}
-                </TouchableOpacity>    
+                    <Rating
+                        readonly={true}
+                        //   showRating
+                        imageSize={25}
+                        onFinishRating={ratingCompleted}
+                        startingValue={reviews}
+                        style={{ paddingVertical: 10 }}
+                    />
+                </TouchableOpacity>
             </View>
-            
+
         </View>
     )
 }
-
+  
 export default Card
 
 const styles = StyleSheet.create({
@@ -61,7 +85,7 @@ const styles = StyleSheet.create({
     },
     cards:
     {
-        flex:1
+        flex: 1
     },
 
     image:
@@ -81,7 +105,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
 
-    title: 
+    title:
     {
         fontWeight: "bold",
         fontSize: 20,
@@ -96,11 +120,11 @@ const styles = StyleSheet.create({
     },
     author:
     {
-        fontSize:16,
-        color:'black',
-        marginTop:5,
-        fontFamily:'fantasy',
-        margin:10
+        fontSize: 16,
+        color: 'black',
+        marginTop: 5,
+        fontFamily: 'fantasy',
+        margin: 10
 
     }
 })

@@ -14,7 +14,7 @@ function SignUp(props) {
   const [email, setEmail] = useState('');
   const [portal, setPortal] = useState('');
   const [error, setError] = useState('');
-  const [picker, setPicker] = useState('Both Department');
+  const [picker, setPicker] = useState('both');
   const [allEntry, setAllEntry] = useState([]);
   
   var {width,height}=Dimensions.get('window');
@@ -45,29 +45,31 @@ function SignUp(props) {
           const result = res.data;
           console.log('sign up Ap response log', res.data);
       
-          if (!result.success) {
-              setError(result.message);
-            } else {
-                setPortal('');
-                setEmail('');
-                setError('');
-          navigation.navigate('Registration',{screen:"Otp", params:users});
+          if (result.success) {
+            setPortal('');
+            setEmail('');
+            setError('');
+            navigation.navigate('Registration',{screen:"Otp", params:users});
+          } else {
+            setError(result.message);
+        
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => 
+         console.log(err)
+         );
   };
 }
 
 
   const handleNext = () => {
     handleSubmit();
-    navigation.navigate('Otp');
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
-        <Image style={{ width: width, height: height/6 }} source={
+        <Image style={{ width: width, height: height/7 }} source={
           require('../assets/fyplogo.png')} resizeMode="contain" />
       </View>
 
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
     marginTop: -70,
   },
   register: {
-    fontSize: 30,
+    fontSize: 25,
     margin: 10,
     color: '#000'
   },
@@ -158,11 +160,11 @@ const styles = StyleSheet.create({
   },
   btn:
   {
-    fontSize: 25,
+    fontSize: 20,
     borderRadius: 5,
     backgroundColor: '#74b1e0',
     color: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     paddingVertical: 10,
     marginBottom:20
 

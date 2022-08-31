@@ -67,7 +67,7 @@ export default function DrawerContainer() {
       <Drawer.Screen name="About Us" component={AboutTabs} options={{ headerTitle: () => (<HeaderImage />),
     drawerIcon:({color})=>(<Icons name='people-outline' color={color} size={22}/>)
     }} />
-      <Drawer.Screen name="Contact Us" component={StackContact} options={{ headerTitle: () => (<HeaderImage />),
+      <Drawer.Screen name="Contact Us" component={ContactTabs} options={{ headerTitle: () => (<HeaderImage />),
     drawerIcon:({color})=>(<Icon name='phone' color={color} size={22}/>)
     }} />
       {/* <Drawer.Screen name="Bar Code Scanner " component={ScannerTab} options={{ headerTitle: () => (<HeaderImage />) }} /> */}

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, Dimensions, Image } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Dimensions, Image ,ActivityIndicator} from 'react-native'
 import React, { useState } from 'react'
 import Card from './Card';
 
@@ -8,40 +8,65 @@ const Recommend = ({ route ,navigation}) => {
     
     // const navigation = useNavigation();
     const { recommendData } = route.params;
-    // const [recommend,setRecommend]=useState(recommendData)
-    console.log('Recommended Data', recommendData)
-    const random=Math.floor((Math.random()*7)+1)
-    console.log('Random',random)
+
+     const [success,setSuccess]=useState(null)
+     const [isloaded,setLoaded]=useState(true);
+    // console.log('Recommended Data', recommendData)
+    let RecommendRate=recommendData?.volumeInfo?.averageRating 
+
+    const recommendRating=()=>{
+        const rateOfBook = RecommendRate?.filter((review)=>{
+                return review >=2
+        })
+    }
+   
+    // const random=Math.floor((Math.random()*7)+1)
+    // console.log('Random',random)
     // const [bookItem, setBookItem] = useState(recommendData);
-    const slice = recommendData.slice(random,8);
-    const [recommend,setRecommend]=useState(slice);
-    //  setRecommend(slice);
-    console.log('Sliced Data', slice)
-    return (
-
-        // <Item title={item.title} />
-        <View style={styles.container}>
-           
-           <View style={styles.cards}>
-              <FlatList
-                data={slice}
-                numColumns={2}
-                // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-                renderItem={({ item }) => <Card
-                  booksData={item}
-                  title={item?.volumeInfo?.title}
-                  subtitle={item?.volumeInfo?.subtitle}
-                  image={item?.volumeInfo?.imageLinks?.thumbnail}
-                  author={item?.volumeInfo?.authors}
-
-                />}
-                keyExtractor={item => item.id}
-              />
-            </View>
+    const slice = recommendData?.filter((review)=>{
+            // setSuccess(true);
+            // setLoaded(true);
+            return review?.volumeInfo?.averageRating >=2
             
+    });
+    console.log('Sliced Data', slice)
+    if(slice <=2)
+    {
+        return (<View style={styles.container}>
+            <Text  style={{ fontSize:22,marginLeft:50,marginTop:250}}>Oops Sorry..!!</Text>
+            <Text style={{ fontSize:18,marginLeft:50}}>No Book is Recommended..</Text>
+        </View>)
+    }
+   
+        return (
+
+            // <Item title={item.title} />
+            <View style={styles.container}>
+               <View style={styles.cards}>
+                  <FlatList
+                    data={slice}
+                    numColumns={2}
+                    // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                    renderItem={({ item }) => <Card
+                      booksData={item}
+                      title={item?.volumeInfo?.title}
+                      subtitle={item?.volumeInfo?.subtitle}
+                      image={item?.volumeInfo?.imageLinks?.thumbnail}
+                      author={item?.volumeInfo?.authors}
+                      rating={ item?.volumeInfo?.averageRating}
+                    />}
+                    keyExtractor={item => item.id}
+                  />
                 </View>
-    )
-}
+                
+                    </View>
+        )
+    }
+    // const [recommend,setRecommend]=useState(slice);
+    //  setRecommend(slice);
+     
+    
+
 
 export default Recommend
 

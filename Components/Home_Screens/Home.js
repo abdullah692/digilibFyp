@@ -58,8 +58,8 @@ function Home({navigation}) {
                     </Swiper>
               </View>
                 
-              <Image style={{ width:width-30, height:height/6}} source={
-                        require('../../assets/abdulkalam.png')} resizeMode='contain' />
+              <Image style={{ width:width, height:height/7.5}} source={
+                        require('../../assets/engabulkalamlib2.png')} resizeMode='contain' />
                     
                 <View style={styles.content}>
                     <Text style={styles.heading}>Welcome Message</Text>
@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
     },
     txt:
     {
-        marginHorizontal: 10,
-        fontSize: 16,
+        marginHorizontal: 8,
+        // fontSize: 16,
         color: '#74b1e0',
         flex:1,
         alignItems:'flex-end'
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     },
     heading:
     {
-        fontSize: 25,
+        fontSize: 22,
         // marginTop:20,
         marginBottom: 5,
         color: "#000",

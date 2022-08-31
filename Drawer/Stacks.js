@@ -1,7 +1,6 @@
 import React from 'react';
 import {View  ,Image,StyleSheet} from 'react-native'
 import {createStackNavigator} from '@react-navigation/stack';
-import {createAppContainer} from 'react-navigation';
 import Home from '../Components/Home_Screens/Home';
 import Landing from '../Components/Home_Screens/Landing';
 import Reference from '../Components/Home_Screens/Reference';
@@ -23,7 +22,9 @@ import Card from '../Components/Catalogue/Card';
 import Search from '../Components/Catalogue/Search';
 import BookDetails from '../Components/Catalogue/BookDetails';
 import Recommend from '../Components/Catalogue/Recommend';
-import RecommendDetails from '../Components/Catalogue/RecommendDetails';
+import Keywords from '../Components/Catalogue/Keywords';
+import ForgetPassword from '../Registeration/ForgetPassword'
+
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,8 @@ function StackRegisteration() {
         <Stack.Screen name="SignUp" component={SignUp}  options={{headerShown :false}}/>
         <Stack.Screen name="Otp" component={Otp}  options={{headerShown :false}}/>
         <Stack.Screen name="Password" component={Password} options={{headerShown :false}}/>
+         <Stack.Screen name="ForgetPassword" component={ForgetPassword} options={{headerShown :false}}/>
+        {/* <Stack.Screen name="UpdatePassword" component={UpdatePassword} options={{headerShown :false}}/>  */}
         <Stack.Screen name="Welcome" component={Welcome}  options={{headerShown :false}}/>
         <Stack.Screen name="Login" component={Login} options={{headerShown :false}}/>
       </Stack.Navigator>
@@ -99,7 +102,7 @@ function StackRegisteration() {
         <Stack.Screen name="Card" component={Card}  options={{headerShown :true}} />
         <Stack.Screen name="BookDetails" component={BookDetails}  options={{headerShown :true}} />
         <Stack.Screen name="Recommend" component={Recommend}  options={{headerShown :true}} />
-        <Stack.Screen name="RecommendBookDetails" component={RecommendDetails}  options={{headerShown :true}} />
+        <Stack.Screen name="Keyword_Search" component={Keywords}  options={{headerShown :true}} />
       </Stack.Navigator>
     );
   }

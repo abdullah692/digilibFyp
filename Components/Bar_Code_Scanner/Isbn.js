@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, Image, Linking, ActivityIndicator, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
+import axios from 'axios';
+import { IP,PORT } from '../../constant';
 
 const Isbn = ({ navigation, route }) => {
 
@@ -8,22 +10,29 @@ const Isbn = ({ navigation, route }) => {
   const [datas, setData] = useState([]);
   const [isloaded, setLoaded] = useState(true);
   const [isTruncated,setTruncated]=useState(true);
+  const [nedIsbn,setNedIsbn]=useState(null);
+  const [isbnStatus,setIsbnStatus]=useState(null);
 
 
   let isbn_value;
   let Link_value;
+  let isbn_NED;
 
   const handleApi = async () => {
+    
     const data = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${isbn}`);
     const bookisbn = await data.json();
-    setLoaded(false);
+    // setStatus(true);
+    
+    
     // console.log(bookisbn);
-
     // console.log(bookisbn.items[0].volumeInfo.industryIdentifiers);
     // const values = bookisbn.items;
     // console.log(values);
-
+    // setLoaded(false);
     setData(bookisbn.items)
+
+
     console.log('Value Data', datas);
     Link_value = bookisbn.items[0].volumeInfo.previewLink.includes(`${isbn}`);
     console.log("Link Value isbn :", Link_value);
@@ -36,33 +45,69 @@ const Isbn = ({ navigation, route }) => {
         isbn_value = obj?.identifier;
         console.log("Identifier Value :", isbn_value);
       }
-      const check = () => {
-        if (isbn_value === isbn || Link_value == true) {
-          console.log("The book is available in NED Library")
-          setStatus(true);
-
-        }
-        else {
-          console.log('Sorry!! This book is not available');
-        }
-
-      }
-      check();
-
+      
+   
     });
-
-
-  }
-  const check = () => {
-    if (isbn_value === isbn || Link_value == true) {
-      console.log("The book is available in NED Library")
-      setStatus(true);
+    const isbnNed=()=>{
+      axios.get(`http://${IP}:${PORT}/api/getBookStatus`,{params:{isbn}})
+      .then((res)=>{
+        setLoaded(false);
+        // console.log('IsbnResponse',res.data)
+        setNedIsbn(res.data);
+        if(res?.data?.bookBankData){
+          setIsbnStatus("Book is Available in Book Bank")
+          setStatus(true)
+        } else if (res?.data?.circulationBookData){
+          setIsbnStatus("Book is Available in Circulation")
+          setStatus(true)
+        } else if(!res.data?.bookInBookBank && !res.data?.circulationBooks){
+          setIsbnStatus("Book is Not Available")
+          setStatus(false)
+        } else {
+          setIsbnStatus("Book is Available in Library")
+          setStatus(true)
+        }
+       
+        
+      }).catch(err => {
+        console.log(err)
+      })
     }
-    else {
-      console.log('Sorry!! This book is not available');
-      setStatus(false);
-    }
+      // const check = () => {
+      //   if (isbn_value === isbn || Link_value == true && isbn_NED==true) {
+      //     console.log("The book is available in NED Library")
+      //     setStatus(true);
+      //   }
+      //   if(isbnStatus.bookInBookBank==true && isbnStatus.circulationBooks==false)
+      //   {
+      //     console.log("The book is available in Book Bank Department")
+      //     setStatus(true);
+      //   }
+      //   if(isbn_value === isbn || Link_value == true || isbnStatus.bookInBookBank==false && isbnStatus.circulationBooks==true)
+      //   {
+      //     console.log("The book is available in Circulation Department")
+      //     setStatus(true); 
+      //   }
+      //   else {
+      //     console.log('Sorry!! This book is not available');
+      //   }
+      // }
+
+      isbnNed();
+    
+        // check();
+        console.log('ISBN NED',nedIsbn)
   }
+  // const check = () => {
+  //   if (isbn_value === isbn || Link_value == true) {
+  //     console.log("The book is available in NED Library")
+  //     setStatus(true);
+  //   }
+  //   else {
+  //     console.log('Sorry!! This book is not available');
+  //     setStatus(false);
+  //   }
+  // }
 
   //Description Read More/Less 
   const descriptionValue = datas[0]?.volumeInfo?.description;
@@ -155,7 +200,7 @@ const Isbn = ({ navigation, route }) => {
               <View>
                 <ScrollView>
                   <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Isbn:  {isbn}</Text>
-                  <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Status: <Text style={{ color: '#3ED443' }}>Book is Available </Text></Text>
+                  <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Status: <Text style={{ color: '#3ED443' ,fontSize:16}}>Book is Available in {"\n"}Eng.Abul Kalam Library </Text></Text>
                   {datas.slice(0, 1).map((item, index) => (
 
                     <View style={styles.content}>
@@ -197,7 +242,7 @@ const Isbn = ({ navigation, route }) => {
           <View >
             <ScrollView>
               <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Isbn:  {isbn}</Text>
-              <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Status: <Text style={{ color: 'red' }}>Book is not Available </Text></Text>
+              <Text style={{ marginHorizontal: 10, fontSize: 15, color: '#000' }}>Status: <Text style={{ color: 'red',fontSize:16 }}>Book is not Available in {"\n"}Eng.Abul Kalam Library</Text></Text>
               {datas.slice(0, 1).map((item, index) => (
                 <View style={styles.content}>
                   <Text style={{ marginVertical: 10, marginHorizontal: 10, fontSize: 30, fontFamily: 'fantasy', color: '#219ebc' }}>

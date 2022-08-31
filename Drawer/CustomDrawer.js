@@ -14,9 +14,9 @@ export default function CustomDrawer(props) {
             <DrawerContentScrollView {...props}>
         
         <View style={{flex:1,alignItems:'center'}}>
-                <Image style={{ width: width/1.5, height:height/8}}
+                <Image style={{ width: width/1.3, height:height/8}}
                     source={
-                        require('../assets/abdulkalam.png')} resizeMode="contain" />
+                        require('../assets/engabulkalamlib2.png')} resizeMode="contain" />
                         </View>
                 <DrawerItemList {...props}  />
                 </DrawerContentScrollView>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     logout:
     {
         flexDirection:'row',
-        marginTop:-60
+        marginTop:-40
         
         // marginTop: '100%',
         // marginHorizontal: 20

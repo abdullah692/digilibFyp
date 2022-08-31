@@ -1,12 +1,12 @@
 import { View, Text,StyleSheet ,Image, TouchableOpacity,Dimensions} from 'react-native';
 import React from 'react';
+var {width,height}=Dimensions.get('window');
 
 export default function Welcome({navigation}) {
-    var {width,height}=Dimensions.get('window');
   return (
     <View style={styles.contianer}>
        <View style={styles.logo}>
-          <Image style={{ width:width, height:height/4 }} source={
+          <Image style={{ width:width, height:height/5 }} source={
                         require('../assets/congrats.png') } resizeMode="contain" />
             </View>
             <Text style={styles.txt}>WELCOME TO HOMEPAGE</Text>
@@ -14,8 +14,8 @@ export default function Welcome({navigation}) {
                 <Text style={styles.btn}> NEXT </Text>
             </TouchableOpacity>
      <View style={styles.footer}>
-          <Image style={{ width:width-70, height:height/8 }} source={
-                        require('../assets/abdulkalam.png') } resizeMode="contain" />
+          <Image style={{ width:width-20, height:height/7 }} source={
+                        require('../assets/engabulkalamlib2.png') } resizeMode="contain" />
           </View>
     </View>
   );
@@ -27,32 +27,35 @@ const styles=StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'#fff'
+        backgroundColor:'#fff',
+        width:width,
+        height:height
+
     },
     logo:
     {
-        marginTop:-90,
+         marginTop:40,
     
     },
     txt:
     {
         marginVertical:40,
-        fontSize:25,
+        fontSize:22,
         color:'#000'
     },
     btn:
     {
-        fontSize:25,
+        fontSize:20,
         borderRadius:5,
         backgroundColor:'#74b1e0',
         color:'#fff',
-        paddingHorizontal:20,
+        paddingHorizontal:15,
         paddingVertical:10,
         marginBottom:20
 
     },
     footer:
     {
-        marginTop:70
+        marginTop:170
     }
 })

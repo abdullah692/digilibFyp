@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     },
     txt:
     {
-        marginHorizontal: 10,
-        fontSize: 16,
+        marginHorizontal: 8,
+        // fontSize: 16,
         color: '#74b1e0'
     },
     content:

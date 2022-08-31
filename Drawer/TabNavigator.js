@@ -132,12 +132,12 @@ function ContactTabs() {
         }}
       />
       <Tab.Screen
-        name="About Us"
-        component={StackAbout}
+        name="Contact Us"
+        component={StackContact}
         options={{
-          tabBarLabel: 'About Us',
+          tabBarLabel: 'Contact',
           tabBarIcon: ({ color }) => (
-            <Icons name="people" color={color} size={26} />
+            <Icons name="call" color={color} size={26} />
           ),
         }}
       />

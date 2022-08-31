@@ -79,6 +79,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, TouchableOpacity, Dimensions } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { Value } from 'react-native-reanimated';
 
 export default function Scanner({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -99,7 +100,16 @@ export default function Scanner({ navigation }) {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    setText(data)
+    const value= /^[0-9]+$/.test(data);
+    if(value)
+    {
+      setText(data)
+    }
+    else
+    {
+      setText('Please scan the barcode to search the book..')
+    }
+
   };
 
   if (hasPermission === null) {
@@ -120,6 +130,7 @@ export default function Scanner({ navigation }) {
         <Text style={styles.maintext}>{text}</Text>
         {scanned && <Button title={'Scan again?'} color='coral' onPress={() => setScanned(false)} />}
         <TouchableOpacity >
+
           <Text style={styles.verify} onPress={() => navigation.navigate("Isbn", { isbn: text })}>
             Check the value
           </Text>

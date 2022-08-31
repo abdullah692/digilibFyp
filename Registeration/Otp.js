@@ -37,12 +37,28 @@ function Otp(props) {
           navigation.navigate('Registration',{screen:"Password", params:user});
     };
 
+    const  handleResend=()=>{
+      setPin("")
+      axios
+      .post(`http://${IP}:${PORT}/api/verifyUser`, user)
+      .then(res => {
+          const result = res.data;
+          console.log('Resend Otp Response', res.data);
+      
+          if (!result.success) {
+              setError(result.message);
+            } 
+      })
+      .catch(err => 
+        console.log(err)
+        );
+    }
     console.log("otp", pin)
 
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
-          <Image style={{ width:width, height:height/6 }} source={
+          <Image style={{ width:width, height:height/7 }} source={
                         require('../assets/notification.png') } resizeMode="contain" />
             </View>
       <Text style={styles.register}>VERIFICATION</Text>
@@ -72,7 +88,7 @@ function Otp(props) {
           Didn't recieve an OTP?
         </Text>
        
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleResend}>
           <Text style={{ color: '#74b1e0'  ,marginHorizontal:10}}>Resend OTP</Text>
         </TouchableOpacity>
       </View>
@@ -89,36 +105,38 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    width:width,
+    height:height
   },
   logo:
   {
     marginTop: -120,
   },
   register: {
-    fontSize:30,
+    fontSize:28,
     margin:10,
     color:'#000'
    },
     btn:
     {
-      fontSize: 25,
+      fontSize: 20,
       borderRadius: 5,
       backgroundColor: '#74b1e0',
       color: '#fff',
-      paddingHorizontal: 20,
+      paddingHorizontal: 15,
       paddingVertical: 10,
-      marginBottom:10
+      marginBottom:20
     },
   
   input: {
-    width: '60%',
+    width: '50%',
     borderColor: '#74b1e0',
     borderBottomWidth: 2,
     flexDirection: 'column',
     alignContent: 'center',
-    fontSize: 40,
+    fontSize: 35,
     textAlign: 'center',
-    marginVertical: 30
+    marginVertical: 40
   },
   textinputs: {
     flexDirection: 'row',

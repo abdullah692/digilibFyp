@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet,Dimensions, ScrollView} from 'react-native'
+var {height,width}=Dimensions.get('window')
 function Contact() {
     return (
+        <ScrollView>
         <View style={styles.container}>
             <View>
                 <Text style={styles.heading}>Contact Us</Text>
@@ -37,8 +39,9 @@ function Contact() {
             <Text style={styles.head1}>Email:</Text>
             <Text style={styles.txt1}>naveen@neduet.edu.pk</Text>
             </View>
-            
+
         </View>
+        </ScrollView>
     )
 }
 
@@ -48,17 +51,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:'#fff',
-        justifyContent:'center',
+        width:width,
+        height:height,
+        // justifyContent:'center',
+        // alignItems:'center'
        
     },
-    heading:
+    heading: 
     {
-        fontSize:45,
+        fontSize:30,
        textAlign:'center',
         borderColor:'#36B5E4',
         color:'#000',
-        borderBottomWidth:3,
-        marginHorizontal:70,
+        borderBottomWidth:2,
+        marginHorizontal:115,
         marginVertical:20
 
     },
@@ -67,44 +73,44 @@ const styles = StyleSheet.create({
         fontSize:18,
         color: "black",
         marginTop:10
-        
+         
     },
     head:
     {
-        fontSize:20,
+        fontSize:18,
         color: "black", 
         marginTop:18,
-        borderBottomWidth:3 ,
+        borderBottomWidth:2 ,
         borderColor:'#36B5E4',
         marginHorizontal:30
     },
     head1:
     {
-        fontSize:20,
+        fontSize:18,
         color: "black", 
-        borderBottomWidth:3 ,
+        borderBottomWidth:2 ,
         borderColor:'#36B5E4',
         marginHorizontal:30
     },
     txt1:
     {
-        fontSize:20,
+        fontSize:18,
         color: "black",
     },
     head2:
     {
         fontSize:18,
         color: "black", 
-        borderBottomWidth:3 ,
+        borderBottomWidth:2 ,
         borderColor:'#36B5E4',
         marginHorizontal:15,
-        marginBottom:40
+         marginBottom:50
     },
     txt2:
     {
-        fontSize:16,
+        fontSize:15,
         color: "black",
-        textAlign:'left'
+        // textAlign:'left'
     },
     contact:
     {
@@ -113,10 +119,11 @@ const styles = StyleSheet.create({
     },
     line:
     {
-        padding:10,
-        fontSize:22,
+        flex:1,
+        // padding:10,
+        fontSize:19,
+        fontFamily:'roboto',
         textAlign:'center',
-        color:'black'
-
+        color:'#000'
     }
 })

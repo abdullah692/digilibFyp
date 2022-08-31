@@ -4,6 +4,7 @@ import CheckBox from '@react-native-community/checkbox';
 import Error from './Error';
 import axios from 'axios';
 import { IP ,PORT} from '../constant';
+var {width,height}=Dimensions.get('window');
 
 function Password(props) {
   const {navigation, route} = props;
@@ -13,7 +14,7 @@ function Password(props) {
   const [error, setError] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [allEntry, setAllEntry] = useState([]);
-  var {width,height}=Dimensions.get('window');
+  
   const handleSubmit = () => {
     const body = {...user};
     body.password = password;
@@ -34,14 +35,52 @@ function Password(props) {
       const result = res.data;
       if (!result.success) return setError('Invalid request');
     })
-    .catch(err => console.log(err));
-      navigation.navigate('Welcome') || navigation.popToTop();
+    .catch(err => 
+      alert(err)
+      // console.log(err)
+      );
+      navigation.navigate('Welcome') 
+      
       console.log("Password body", body)
   }
     
   };
+
+  const handleReset = () => {
+    const body = {...user};
+    body.password = password;
+    if (password === '' && cnfrmPassword === '') {
+      setError('Please ! Enter your Password');
+    } else if (password != cnfrmPassword) {
+      setError('The Password you enter is not matched');
+    } else
+    {
+      axios
+    .post(`http://${IP}:${PORT}/api/reset`, body)
+    .then(res => {
+      // setPassword('');
+      // setCnfrmPassword('');
+      // setError('');
+      setShowPass(false);
+      const result = res.data;
+      if (!result.success) return setError('Invalid request');
+    })
+    .catch(err => console.log(err));
+      navigation.navigate('Login') 
+      
+      console.log("Password body", body)
+  }
+};
+  
+
   const handleNext = () => {
+
     handleSubmit();
+    if(user?.action)
+    {
+      handleReset();
+    }
+    
     // navigation.navigate('Welcome')
   };
 
@@ -93,6 +132,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    width:width,
+    height:height
   },
   error: {
     alignItems: 'center',
@@ -100,17 +141,17 @@ const styles = StyleSheet.create({
   },
   btn:
     {
-      fontSize: 25,
+      fontSize: 20,
       borderRadius: 10,
       backgroundColor: '#74b1e0',
       color: '#fff',
-      paddingHorizontal: 20,
+      paddingHorizontal: 15,
       paddingVertical: 10,
       marginBottom:10
     },
     logo:
   {
-    marginTop: -150,
+    // marginTop: 20,
   },
     text: {
     borderBottomWidth: 2,

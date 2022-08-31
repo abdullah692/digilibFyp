@@ -75,7 +75,10 @@ function Login(props) {
             return alert('Invalid request');
           }
         })
-        .catch(err => console.log(err));
+        .catch(err => 
+         
+          console.log(err)
+          );
     }
 
 //     console.log(portal,password);
@@ -109,7 +112,7 @@ function Login(props) {
     <View style={styles.container}>
 
       <View style={styles.logo}>
-        <Image style={{ width: width, height: height/6 }} source={
+        <Image style={{ width: width, height: height/7 }} source={
           require('../assets/fyplogo.png')} resizeMode="contain" />
       </View>
       <Text style={styles.register}>WELCOME BACK!</Text>
@@ -125,7 +128,7 @@ function Login(props) {
       <TextInput
         style={styles.text}
         placeholder="Password"
-        secureTextEntry={false}
+        secureTextEntry={true}
         value={Password}
         onChangeText={pass => setPassword(pass.toLowerCase())}
       />
@@ -144,7 +147,9 @@ function Login(props) {
         <TouchableOpacity onPress={()=>navigation.navigate('SignUp')}>
         <Text style={{color:'#74b1e0'}}>Create Account</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('ForgetPassword')}>
         <Text style={{marginHorizontal:10}}>|   Forget Password</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -161,10 +166,11 @@ const styles = StyleSheet.create({
   },
   logo:
   {
-    marginTop: -120,
+    marginTop: -30, 
+    marginBottom:30
   },
   register: {
-    fontSize: 30,
+    fontSize: 25,
     margin: 10,
     color: '#000'
   },
@@ -183,13 +189,13 @@ const styles = StyleSheet.create({
   },
   btn:
   {
-    fontSize: 25,
+    fontSize: 20,
     borderRadius: 5,
     backgroundColor: '#74b1e0',
     color: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     paddingVertical: 10,
-    marginBottom: 20
+    marginBottom: 40
 
   },
   // middle: {
